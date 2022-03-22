@@ -17,6 +17,12 @@ export interface LeafClickProps {
 	currentNode: any;
 }
 
+export interface ItemLeafStyle {
+	backgroudColor?:string,
+	fontSize?:string | number,
+	color?:string,
+}
+
 export interface TreeSelectProps {
 	data: TreeItem[];//树型结构数据
 	selectType?: 'single' | 'multiple',//选择类型：单选/多选
@@ -25,8 +31,8 @@ export interface TreeSelectProps {
 	isOpen?: boolean;//是否默认打开所有节点，优先级高于openIds，当true时忽略openIds
 	openIds?: TreeItem['id'][];//指定默认打开的节点id
 	isShowTreeId?: boolean;//指定是否显示节点id
-	itemStyle?: (e:TreeItem) =>object;//指定item项的样式,其中包含三个子项backgroudColor：背景的颜色, fontSize：字体大小, color：字体的颜色，可根据TreeItem数据进行自定义展示
-	selectedItemStyle?: (e:TreeItem) =>object;//指定点击按钮选中时的样式,其中包含三个子项backgroudColor：选中时的颜色, fontSize：选中时的字体大小, color：选中时字体的颜色，可根据TreeItem数据进行自定义展示
+	itemStyle?: (e:TreeItem) =>any;//指定item项的样式,其中包含三个子项backgroudColor：背景的颜色, fontSize：字体大小, color：字体的颜色，可根据TreeItem数据进行自定义展示
+	selectedItemStyle?: (e:TreeItem) =>any;//指定点击按钮选中时的样式,其中包含三个子项backgroudColor：选中时的颜色, fontSize：选中时的字体大小, color：选中时字体的颜色，可根据TreeItem数据进行自定义展示
 	treeNodeStyle?: {//指定节点处的图标样式，包含两个属性openIcon，closeIcon,支持传icon和image类型
 		openIcon?: ReactElement;
 		closeIcon?: ReactElement;
