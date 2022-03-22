@@ -44,6 +44,7 @@ const isInChildren = (childrenTreeData, searchValues) => {
     return false;
 };
 
+//筛选包含搜索值的数据
 export const filterSearchData = (treeData, searchValue) => {
     let nodes = [];
 
@@ -63,28 +64,7 @@ export const filterSearchData = (treeData, searchValue) => {
     } else {
         nodes = treeData;
     }
-    console.log('nodes--', nodes);
     return nodes;
-};
-
-const getDataTree = (list, parentId) => {
-    var result = [];
-    for (let i = 0; i < list.length; i++) {
-        var item = list[i];
-        if (item.parentId === parentId) {
-
-            var children = getDataTree(list, item.itemId);
-            if (children != null) {
-                item['children'] = children;
-            }
-
-            result.push(item);
-        }
-    }
-    if (result.length === 0) {
-        return null;
-    }
-    return result;
 };
 
 

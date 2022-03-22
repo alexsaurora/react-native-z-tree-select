@@ -1,2 +1,2 @@
-var TreeSelect = require('./component/index');
-module.exports = TreeSelect;
+var ZTreeSelect = require('./component/index');
+module.exports = ZTreeSelect;

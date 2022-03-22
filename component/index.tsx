@@ -6,7 +6,7 @@ import {
     TouchableOpacity,
     FlatList, TextInput, Keyboard
 } from 'react-native';
-import {breadthFirstRecursion, filterSearchData} from '@/components/ZTreeSelect/utils/menutransform';
+import {breadthFirstRecursion, filterSearchData} from '../utils/menutransform';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {TreeSelectProps} from '../index';
 import _ from 'lodash';
@@ -32,7 +32,6 @@ const TreeSelect = (props: TreeSelectProps) => {
         setNodeStatus(initNodesStatus());
 
         if (props.data) {
-            console.log("初始化树型数据");
             setTreeData(data);
         }
 
@@ -41,24 +40,13 @@ const TreeSelect = (props: TreeSelectProps) => {
 
 
     useEffect(() => {
-        console.log('分步展开');
-        console.log('分步展开前的lazySelectedId',lazySelectedId);
-        console.log('分步展开前的currentNode',currentNode);
-        console.log('分步展开前的nodesStatus',nodesStatus);
         if (lazySelectedId.length>0 && currentNode!==null &&lazySelectedId.indexOf(currentNode)<0 && nodesStatus !==undefined) {
             let newNodesStatus = _.cloneDeep(nodesStatus);
-            console.log('分布展开的newNodesStatus.get(currentNode)', newNodesStatus.get(currentNode));
             newNodesStatus.set(currentNode, !(newNodesStatus.get(currentNode)));
-            // newNodesStatus.set(currentNode, true);
             setNodeStatus(newNodesStatus);
         }
 
     }, [lazySelectedId]);
-
-    console.log('treeData!!!', treeData);
-    console.log('data!!!', data);
-    console.log('nodesStatus!!!', nodesStatus);
-    console.log('currentNode!!!', currentNode);
 
 
     const initCurrentNode = () => {
@@ -69,9 +57,7 @@ const TreeSelect = (props: TreeSelectProps) => {
     };
 
     const initNodesStatus = () => {
-        console.log("初始化initNodesStatus！！");
         const nodesStatus = new Map();
-        console.log('初始化initNodesStatus中的isOpen',isOpen);
         if (!isOpen) {
             if (openIds && openIds.length) {
                 for (let id of openIds) { // eslint-disable-line
@@ -128,7 +114,6 @@ const TreeSelect = (props: TreeSelectProps) => {
         const routes = _find(data, item.id);
         let newNodesStatus = _.cloneDeep(nodesStatus);
         let finalCurrentNode;
-        console.log('press之前的nodesStatus',newNodesStatus);
         newNodesStatus.set(item && item.id, !nodesStatus.get(item && item.id)); // toggle
         // 计算currentNode的内容
         if (selectType === 'multiple') {
@@ -145,7 +130,6 @@ const TreeSelect = (props: TreeSelectProps) => {
             finalCurrentNode = item.id;
         }
         setCurrentNode(finalCurrentNode);
-        console.log('press之后的nodesStatus',newNodesStatus);
         setNodeStatus(newNodesStatus);
         if (onClick && typeof onClick === 'function') {
             onClick({
@@ -157,7 +141,6 @@ const TreeSelect = (props: TreeSelectProps) => {
     };
 
     const _onClickLeaf = ({e, item}) => { // eslint-disable-line
-        console.log('_onClickLeaf啦啦啦啦啦啦');
         const routes = _find(data, item.id);
         let finalCurrentNode;
         if (selectType === 'multiple') {
@@ -298,12 +281,10 @@ const TreeSelect = (props: TreeSelectProps) => {
     };
 
     const onSearch = () => {
-        console.log('要搜索的值和全部数据：', searchValue, data, treeData);
         searchInputRef.current.blur();
         Keyboard.dismiss();
         let defaultData = _.cloneDeep(data);
         let result = filterSearchData(defaultData, searchValue);
-        console.log('搜索结果result===========', result);
         setTreeData(result);
     };
 
